@@ -1,0 +1,30 @@
+.grid {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: hidden;
+}
+
+.grid__row {
+  display: flex;
+}
+
+.grid__cell {
+  flex: 1;
+  padding: 10px;
+  aspect-ratio: 1;
+  max-width: 100px;
+  position: relative;
+  background-color: #ccc;
+}
+
+.grid__row:nth-child(odd) .grid__cell:nth-child(odd),
+.grid__row:nth-child(even) .grid__cell:nth-child(even) {
+  background-color: #ddd;
+}
+
+.grid__coordinates {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+}
