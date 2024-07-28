@@ -3,15 +3,18 @@
   background-color: var(--leva-colors-elevation1);
   color: white;
   min-width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.card h2 {
+.card__title {
   background-color: var(--leva-colors-elevation1);
   font-size: 12px;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   cursor: move;
+  border-radius: 8px;
 }
 
 .card__delete {
@@ -23,4 +26,10 @@
   &:hover {
     color: #f35;
   }
+}
+
+.card__controls {
+  margin: 0 5px 5px;
+  border-radius: 8px;
+  overflow: hidden;
 }

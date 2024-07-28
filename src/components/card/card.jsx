@@ -68,13 +68,15 @@ function Card({ name, onDeleteCard }) {
 
   return (
     <div className="card" style={{ opacity: isDragging ? 0.1 : null }}>
-      <h2 ref={ref}>
+      <h2 className="card__title" ref={ref}>
         {name}{' '}
         <button onClick={onDeleteCard} className="card__delete">
           &times; Delete
         </button>
       </h2>
-      <Leva store={store} fill flat titleBar={false} />
+      <div className="card__controls">
+        <Leva store={store} fill flat titleBar={false} />
+      </div>
     </div>
   );
 }
