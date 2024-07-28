@@ -1,3 +1,4 @@
+import Cell from './cell';
 import './grid.scss';
 
 function Grid({ width, height }) {
@@ -7,13 +8,7 @@ function Grid({ width, height }) {
         return (
           <div key={y} className="grid__row">
             {Array.from({ length: width }).map((_, x) => {
-              return (
-                <div key={x} className="grid__cell">
-                  <div className="grid__coordinates">
-                    {x},{y}
-                  </div>
-                </div>
-              );
+              return <Cell key={`${x}-${y}`} x={x} y={y} />;
             })}
           </div>
         );

@@ -5,6 +5,15 @@
   min-width: 300px;
 }
 
+.card h2 {
+  background-color: var(--leva-colors-elevation1);
+  font-size: 12px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+}
+
 .card__delete {
   background: none;
   border: none;

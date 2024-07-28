@@ -1,21 +1,27 @@
 import { Leva, useControls, useCreateStore } from 'leva';
+import { useEffect, useState, useRef } from 'react';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import './card.scss';
 
 function Card({ name, onDeleteCard }) {
+  const ref = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+
   const store = useCreateStore();
-  useControls(
+
+  const cardData = useControls(
     {
       energy: {
-        value: 8,
-        min: 1,
-        max: 20,
+        value: 1,
+        min: 0,
+        max: 5,
         step: 1,
       },
       value: {
-        value: 4,
-        min: 1,
-        max: 20,
+        value: 1,
+        min: 0,
+        max: 3,
         step: 1,
       },
       type: {
@@ -26,9 +32,43 @@ function Card({ name, onDeleteCard }) {
     { store }
   );
 
+  useControls(
+    'Modifiers',
+    {
+      weak: false,
+      weakTurns: {
+        value: 1,
+        min: 0,
+        max: 5,
+        step: 1,
+      },
+      vulnerable: false,
+      vulnerableTurns: {
+        value: 1,
+        min: 0,
+        max: 5,
+        step: 1,
+      },
+    },
+    { store }
+  );
+
+  useEffect(() => {
+    const el = ref.current;
+
+    // invariant(el);
+
+    return draggable({
+      element: el,
+      getInitialData: () => ({ name, cardData }),
+      onDragStart: () => setIsDragging(true),
+      onDrop: () => setIsDragging(false),
+    });
+  }, [cardData, name]);
+
   return (
-    <div className="card">
-      <h2>
+    <div className="card" style={{ opacity: isDragging ? 0.1 : null }}>
+      <h2 ref={ref}>
         {name}{' '}
         <button onClick={onDeleteCard} className="card__delete">
           &times; Delete
