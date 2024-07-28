@@ -1,4 +1,4 @@
-import { Leva, useControls, useCreateStore } from 'leva';
+import { Leva, useCreateStore } from 'leva';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import './app.scss';
@@ -9,29 +9,7 @@ import Log from './components/log/log';
 
 function App() {
   const appStore = useCreateStore();
-  const cardStore = useCreateStore();
   const [log, setLog] = useState([]);
-
-  const grid = useControls(
-    'Grid',
-    {
-      width: {
-        value: 8,
-        min: 1,
-        max: 20,
-        step: 1,
-      },
-      height: {
-        value: 4,
-        min: 1,
-        max: 20,
-        step: 1,
-      },
-    },
-    {
-      store: appStore,
-    }
-  );
 
   useEffect(() => {
     return monitorForElements({
@@ -46,13 +24,13 @@ function App() {
           const key = `{source.data.name} {destination.data.x},{destination.data.y}`;
 
           return [
-            ...prev,
             <div key={key}>
               Dropped <b>{source.data.name}</b> on{' '}
               <b>
                 {destination.data.x},{destination.data.y}
               </b>
             </div>,
+            ...prev,
           ];
         });
       },
@@ -63,8 +41,8 @@ function App() {
     <main>
       <h1>Temple of the King</h1>
       <Leva store={appStore} />
-      <Grid width={grid.width} height={grid.height}></Grid>
-      <Cards store={cardStore} />
+      <Grid store={appStore} />
+      <Cards />
       <Log log={log} />
     </main>
   );

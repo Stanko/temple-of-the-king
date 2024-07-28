@@ -4,7 +4,7 @@ import Card from '../card/card';
 
 let i = 0;
 
-function Cards({ store }) {
+function Cards() {
   const [cards, setCards] = useState([]);
 
   return (
@@ -13,7 +13,6 @@ function Cards({ store }) {
         {cards.map((card) => (
           <Card
             key={card.name}
-            store={store}
             name={card.name}
             onDeleteCard={() => {
               setCards(cards.filter((c) => c.name !== card.name));
