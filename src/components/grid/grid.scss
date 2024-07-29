@@ -2,17 +2,24 @@
   display: flex;
   flex-direction: column-reverse;
   overflow: hidden;
+  max-width: 800px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: var(--grid-border-width) solid #bbb;
+
+  --grid-cell-size: 100px;
+  --grid-border-width: 5px;
 }
 
 .grid__row {
   display: flex;
+  justify-content: center;
 }
 
 .grid__cell {
   flex: 1;
   padding: 10px;
   aspect-ratio: 1;
-  max-width: 100px;
   position: relative;
   background-color: #ccc;
 }

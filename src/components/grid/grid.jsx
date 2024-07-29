@@ -25,7 +25,12 @@ function Grid({ store }) {
   );
 
   return (
-    <div className="grid">
+    <div
+      className="grid"
+      style={{
+        maxWidth: `calc(${grid.width} * var(--grid-cell-size) + 2 * var(--grid-border-width))`,
+      }}
+    >
       {Array.from({ length: grid.height }).map((_, y) => {
         return (
           <div key={y} className="grid__row">
