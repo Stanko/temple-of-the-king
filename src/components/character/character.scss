@@ -1,8 +1,23 @@
 .character {
   position: relative;
   background-color: #3c4e60;
-  border: 1px solid #1c2e40;
-  max-width: 250px;
+  border: 1px solid rgb(28, 46, 64);
+  min-width: 250px;
+}
+
+.character--dragging {
+  opacity: 0.5;
+}
+
+.character--selected {
+  background: #8e44ad;
+}
+
+.character__image-wrapper {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  width: 100%;
 }
 
 .character__image {
@@ -26,6 +41,10 @@
 }
 
 .grid {
+  .character {
+    min-width: auto;
+  }
+
   .character__controls {
     position: absolute;
     z-index: 1000;

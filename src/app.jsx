@@ -15,6 +15,7 @@ function App() {
   const appStore = useCreateStore();
   const [characters, setCharacters] = useState([]);
   const [log, setLog] = useState([]);
+  const [selectedID, setSelectedID] = useState(null);
 
   useEffect(() => {
     return monitorForElements({
@@ -47,26 +48,51 @@ function App() {
 
         setLog((prev) => {
           const key = `{source.data.name} {destination.data.x},{destination.data.y}`;
+          let action = 'Dropped';
+
+          let selectedMessage = '';
+          if (source.data.type === 'card') {
+            action = 'Played';
+            selectedMessage = 'no character selected';
+
+            if (selectedID !== null) {
+              const selectedCharacter = characters.find(
+                (c) => c.id === selectedID
+              );
+              selectedMessage = (
+                <span>
+                  for <b>{selectedCharacter.name}</b>
+                </span>
+              );
+            }
+          }
 
           return [
             <div key={key}>
-              Dropped <b>{source.data.name}</b> on{' '}
+              {action} <b>{source.data.name}</b> on{' '}
               <b>
                 {destination.data.x},{destination.data.y}
-              </b>
+              </b>{' '}
+              {selectedMessage}
             </div>,
             ...prev,
           ];
         });
       },
     });
-  }, [characters]);
+  }, [characters, selectedID]);
 
   return (
     <main>
       <h1>Temple of the King</h1>
       <Leva store={appStore} />
-      <Grid store={appStore} characters={characters} />
+      <Grid
+        store={appStore}
+        characters={characters}
+        selectedID={selectedID}
+        setSelectedID={setSelectedID}
+        setCharacters={setCharacters}
+      />
       <Characters characters={defaultCharacters} />
       <Cards />
       <Log log={log} />

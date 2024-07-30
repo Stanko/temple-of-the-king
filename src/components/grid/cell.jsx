@@ -1,8 +1,9 @@
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import './grid.scss';
 import { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 
-function Cell({ children, x, y }) {
+function Cell({ children, x, y, highlight }) {
   const ref = useRef(null);
   const [isDraggedOver, setIsDraggedOver] = useState(false);
 
@@ -25,8 +26,10 @@ function Cell({ children, x, y }) {
     <div
       key={x}
       ref={ref}
-      className="grid__cell"
-      style={{ background: isDraggedOver ? '#123' : null }}
+      className={classNames('grid__cell', {
+        'grid__cell--drag-over': isDraggedOver,
+        'grid__cell--highlight': highlight,
+      })}
     >
       <div className="grid__coordinates">
         {x},{y}

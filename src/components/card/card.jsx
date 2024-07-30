@@ -5,21 +5,22 @@ import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import './card.scss';
 import { getRange } from '../../lib/utils';
 
-function Card({
-  cost,
-  attack,
-  block,
-  heal,
-  name,
-  vulnerable,
-  weak,
-  color,
-  onDeleteCard,
-  repeat,
-  slow,
-  freeze,
-  affectsAll,
-}) {
+function Card(props) {
+  const {
+    name,
+    cost,
+    attack,
+    block,
+    heal,
+    repeat,
+    affectsAll,
+    weak,
+    vulnerable,
+    slow,
+    freeze,
+    onDeleteCard,
+    color,
+  } = props;
   const ref = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -36,7 +37,7 @@ function Card({
     { store }
   );
 
-  useControls(
+  const modifiers = useControls(
     'Modifiers',
     {
       affectsAll: affectsAll,
@@ -53,11 +54,11 @@ function Card({
 
     return draggable({
       element: el,
-      getInitialData: () => ({ name, cardData }),
+      getInitialData: () => ({ ...props, ...cardData, ...modifiers }),
       onDragStart: () => setIsDragging(true),
       onDrop: () => setIsDragging(false),
     });
-  }, [cardData, name]);
+  }, [cardData, props, modifiers]);
 
   return (
     <div className="card" style={{ opacity: isDragging ? 0.1 : null }}>

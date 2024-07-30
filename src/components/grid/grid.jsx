@@ -4,7 +4,17 @@ import './grid.scss';
 import Character from '../character/character';
 import { getItemOnField } from '../../lib/utils';
 
-function Grid({ store, characters }) {
+const canMoveToField = (character, targetX, targetY) => {
+  if (!character) {
+    return false;
+  }
+  const { position, move } = character;
+  const distance =
+    Math.abs(targetX - position.x) + Math.abs(targetY - position.y);
+  return distance <= move;
+};
+
+function Grid({ store, characters, selectedID, setSelectedID, setCharacters }) {
   const grid = useControls(
     'Grid',
     {
@@ -26,6 +36,10 @@ function Grid({ store, characters }) {
     }
   );
 
+  const selectedCharacter = characters.find(
+    (character) => character.id === selectedID
+  );
+
   return (
     <div
       className="grid"
@@ -39,9 +53,19 @@ function Grid({ store, characters }) {
             {Array.from({ length: grid.width }).map((_, x) => {
               const character = getItemOnField(characters, { x, y });
 
+              const highlight = canMoveToField(selectedCharacter, x, y);
+
               return (
-                <Cell key={`${x}-${y}`} x={x} y={y}>
-                  {character && <Character {...character} />}
+                <Cell key={`${x}-${y}`} x={x} y={y} highlight={highlight}>
+                  {character && (
+                    <Character
+                      {...character}
+                      isSelected={character.id === selectedID}
+                      setSelectedID={setSelectedID}
+                      isOnGrid
+                      setCharacters={setCharacters}
+                    />
+                  )}
                 </Cell>
               );
             })}

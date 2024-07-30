@@ -23,9 +23,22 @@
   background-color: #2c3e50;
 }
 
+.grid__cell--drag-over {
+  background-color: #123 !important;
+}
+
+.grid__cell--highlight {
+  background-color: #1c689b;
+}
+
 .grid__row:nth-child(odd) .grid__cell:nth-child(odd),
 .grid__row:nth-child(even) .grid__cell:nth-child(even) {
   background-color: #34495e;
+}
+
+.grid__row:nth-child(odd) .grid__cell--highlight:nth-child(odd),
+.grid__row:nth-child(even) .grid__cell--highlight:nth-child(even) {
+  background-color: #2980b9;
 }
 
 .grid__coordinates {

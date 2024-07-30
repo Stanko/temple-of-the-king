@@ -32,6 +32,7 @@ const colors = {
 /**
  * @typedef Card
  * @type {Object}
+ * @property {'card'} type
  * @property {string} name
  * @property {Colors[ColorKey]} color
  * @property {number} cost
@@ -51,6 +52,7 @@ const colors = {
  */
 const cards = [
   {
+    type: 'card',
     name: 'Attack',
     color: colors.BLUE,
     cost: 1,
@@ -65,6 +67,7 @@ const cards = [
     affectsAll: false,
   },
   {
+    type: 'card',
     name: 'Triple hit',
     color: colors.BLUE,
     cost: 2,
@@ -79,6 +82,7 @@ const cards = [
     affectsAll: false,
   },
   {
+    type: 'card',
     name: 'Bash',
     color: colors.PURPLE,
     cost: 2,
@@ -93,6 +97,7 @@ const cards = [
     affectsAll: false,
   },
   {
+    type: 'card',
     name: 'Whirlwind',
     color: colors.PURPLE,
     cost: 3,
@@ -107,6 +112,7 @@ const cards = [
     affectsAll: true,
   },
   {
+    type: 'card',
     name: 'Block',
     color: colors.TURQUOISE,
     cost: 1,
@@ -121,6 +127,7 @@ const cards = [
     affectsAll: false,
   },
   {
+    type: 'card',
     name: 'Healing rain',
     color: colors.GREEN,
     cost: 3,
