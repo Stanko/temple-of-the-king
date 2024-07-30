@@ -9,6 +9,30 @@ import Log from './components/log/log';
 
 function App() {
   const appStore = useCreateStore();
+  const [characters, setCharacters] = useState([
+    {
+      id: 1,
+      name: 'Grom',
+      type: 'warrior',
+      hp: 10,
+      image: '10.png',
+      position: {
+        x: 0,
+        y: 0,
+      },
+    },
+    {
+      id: 1,
+      name: 'Žika',
+      type: 'mage',
+      hp: 8,
+      image: '14.png',
+      position: {
+        x: 3,
+        y: 1,
+      },
+    },
+  ]);
   const [log, setLog] = useState([]);
 
   useEffect(() => {
@@ -18,6 +42,15 @@ function App() {
         if (!destination) {
           // if dropped outside of any drop targets
           return;
+        }
+
+        if (source.data.character) {
+          const character = characters.find((c) => c.name === source.data.name);
+
+          if (character) {
+            character.position = destination.data;
+            setCharacters([...characters]);
+          }
         }
 
         setLog((prev) => {
@@ -41,7 +74,7 @@ function App() {
     <main>
       <h1>Temple of the King</h1>
       <Leva store={appStore} />
-      <Grid store={appStore} />
+      <Grid store={appStore} characters={characters} />
       <Cards />
       <Log log={log} />
     </main>

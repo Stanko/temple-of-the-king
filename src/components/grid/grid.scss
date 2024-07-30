@@ -1,13 +1,10 @@
 .grid {
   display: flex;
   flex-direction: column-reverse;
-  overflow: hidden;
   max-width: 800px;
-  border-radius: 20px;
-  overflow: hidden;
   border: var(--grid-border-width) solid #bbb;
 
-  --grid-cell-size: 100px;
+  --grid-cell-size: 120px;
   --grid-border-width: 5px;
 }
 

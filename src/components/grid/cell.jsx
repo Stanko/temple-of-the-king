@@ -8,7 +8,6 @@ function Cell({ children, x, y }) {
 
   useEffect(() => {
     const el = ref.current;
-    // invariant(el);
 
     return dropTargetForElements({
       element: el,

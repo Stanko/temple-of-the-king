@@ -1,8 +1,10 @@
 import { useControls } from 'leva';
 import Cell from './cell';
 import './grid.scss';
+import Character from '../character/character';
+import { getItemOnField } from '../../lib/utils';
 
-function Grid({ store }) {
+function Grid({ store, characters }) {
   const grid = useControls(
     'Grid',
     {
@@ -35,7 +37,13 @@ function Grid({ store }) {
         return (
           <div key={y} className="grid__row">
             {Array.from({ length: grid.width }).map((_, x) => {
-              return <Cell key={`${x}-${y}`} x={x} y={y} />;
+              const character = getItemOnField(characters, { x, y });
+
+              return (
+                <Cell key={`${x}-${y}`} x={x} y={y}>
+                  {character && <Character {...character} />}
+                </Cell>
+              );
             })}
           </div>
         );

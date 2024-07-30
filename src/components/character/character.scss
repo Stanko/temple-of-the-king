@@ -1,0 +1,38 @@
+.character {
+  position: relative;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.character__image {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  width: 64px;
+  padding: 10px;
+  padding-top: 5px;
+  display: block;
+}
+
+.character__title {
+  background-color: #fff;
+  font-size: 12px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+}
+
+.character__controls {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: 200ms opacity;
+  width: 250px;
+}
+
+.character:hover .character__controls {
+  opacity: 1;
+  pointer-events: all;
+}

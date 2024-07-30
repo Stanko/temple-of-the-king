@@ -56,8 +56,6 @@ function Card({ name, onDeleteCard }) {
   useEffect(() => {
     const el = ref.current;
 
-    // invariant(el);
-
     return draggable({
       element: el,
       getInitialData: () => ({ name, cardData }),
