@@ -1,7 +1,8 @@
 .character {
   position: relative;
-  background-color: #eee;
-  border: 1px solid #ccc;
+  background-color: #3c4e60;
+  border: 1px solid #1c2e40;
+  max-width: 250px;
 }
 
 .character__image {
@@ -15,7 +16,8 @@
 }
 
 .character__title {
-  background-color: #fff;
+  background-color: #4c5e70;
+  color: #fff;
   font-size: 12px;
   padding: 10px;
   display: flex;
@@ -23,16 +25,18 @@
   cursor: move;
 }
 
-.character__controls {
-  position: absolute;
-  z-index: 1000;
-  pointer-events: none;
-  opacity: 0;
-  transition: 200ms opacity;
-  width: 250px;
-}
+.grid {
+  .character__controls {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: 200ms opacity;
+    width: 250px;
+  }
 
-.character:hover .character__controls {
-  opacity: 1;
-  pointer-events: all;
+  .character:hover .character__controls {
+    opacity: 1;
+    pointer-events: all;
+  }
 }

@@ -3,8 +3,23 @@ import { useEffect, useState, useRef } from 'react';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import './card.scss';
+import { getRange } from '../../lib/utils';
 
-function Card({ name, onDeleteCard }) {
+function Card({
+  cost,
+  attack,
+  block,
+  heal,
+  name,
+  vulnerable,
+  weak,
+  color,
+  onDeleteCard,
+  repeat,
+  slow,
+  freeze,
+  affectsAll,
+}) {
   const ref = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -12,22 +27,11 @@ function Card({ name, onDeleteCard }) {
 
   const cardData = useControls(
     {
-      energy: {
-        value: 1,
-        min: 0,
-        max: 5,
-        step: 1,
-      },
-      value: {
-        value: 1,
-        min: 0,
-        max: 3,
-        step: 1,
-      },
-      type: {
-        value: 'Attack',
-        options: ['Attack', 'Block'],
-      },
+      cost: getRange(0, 5, cost),
+      attack: getRange(0, 5, attack),
+      block: getRange(0, 5, block),
+      heal: getRange(0, 5, heal),
+      repeat: getRange(1, 5, repeat),
     },
     { store }
   );
@@ -35,20 +39,11 @@ function Card({ name, onDeleteCard }) {
   useControls(
     'Modifiers',
     {
-      weak: false,
-      weakTurns: {
-        value: 1,
-        min: 0,
-        max: 5,
-        step: 1,
-      },
-      vulnerable: false,
-      vulnerableTurns: {
-        value: 1,
-        min: 0,
-        max: 5,
-        step: 1,
-      },
+      affectsAll: affectsAll,
+      weak: getRange(0, 5, weak),
+      vulnerable: getRange(0, 5, vulnerable),
+      slow: getRange(0, 5, slow),
+      freeze: getRange(0, 5, freeze),
     },
     { store }
   );
@@ -66,7 +61,7 @@ function Card({ name, onDeleteCard }) {
 
   return (
     <div className="card" style={{ opacity: isDragging ? 0.1 : null }}>
-      <h2 className="card__title" ref={ref}>
+      <h2 className="card__title" ref={ref} style={{ background: color }}>
         {name}{' '}
         <button onClick={onDeleteCard} className="card__delete">
           &times; Delete

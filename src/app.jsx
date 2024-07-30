@@ -6,33 +6,14 @@ import Grid from './components/grid/grid';
 import Cards from './components/cards/cards';
 import { useEffect, useState } from 'react';
 import Log from './components/log/log';
+import Characters from './components/characters/characters';
+import defaultCharacters from './data/characters.js';
+
+let i = 100;
 
 function App() {
   const appStore = useCreateStore();
-  const [characters, setCharacters] = useState([
-    {
-      id: 1,
-      name: 'Grom',
-      type: 'warrior',
-      hp: 10,
-      image: '10.png',
-      position: {
-        x: 0,
-        y: 0,
-      },
-    },
-    {
-      id: 1,
-      name: 'Žika',
-      type: 'mage',
-      hp: 8,
-      image: '14.png',
-      position: {
-        x: 3,
-        y: 1,
-      },
-    },
-  ]);
+  const [characters, setCharacters] = useState([]);
   const [log, setLog] = useState([]);
 
   useEffect(() => {
@@ -44,8 +25,19 @@ function App() {
           return;
         }
 
-        if (source.data.character) {
-          const character = characters.find((c) => c.name === source.data.name);
+        if (source.data.createNew) {
+          setCharacters([
+            ...characters,
+            {
+              ...source.data,
+              name: source.data.name,
+              id: i++,
+              position: destination.data,
+              createNew: false,
+            },
+          ]);
+        } else {
+          const character = characters.find((c) => c.id === source.data.id);
 
           if (character) {
             character.position = destination.data;
@@ -68,13 +60,14 @@ function App() {
         });
       },
     });
-  }, []);
+  }, [characters]);
 
   return (
     <main>
       <h1>Temple of the King</h1>
       <Leva store={appStore} />
       <Grid store={appStore} characters={characters} />
+      <Characters characters={defaultCharacters} />
       <Cards />
       <Log log={log} />
     </main>

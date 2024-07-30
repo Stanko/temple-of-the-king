@@ -26,7 +26,7 @@ function Cell({ children, x, y }) {
       key={x}
       ref={ref}
       className="grid__cell"
-      style={{ background: isDraggedOver ? '#ddf' : null }}
+      style={{ background: isDraggedOver ? '#123' : null }}
     >
       <div className="grid__coordinates">
         {x},{y}

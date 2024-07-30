@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: column-reverse;
   max-width: 800px;
-  border: var(--grid-border-width) solid #bbb;
+  border: var(--grid-border-width) solid #1c2e40;
+  border-radius: 6px;
 
-  --grid-cell-size: 120px;
-  --grid-border-width: 5px;
+  --grid-cell-size: 140px;
+  --grid-border-width: 8px;
 }
 
 .grid__row {
@@ -14,16 +15,17 @@
 }
 
 .grid__cell {
+  color: #ddd;
   flex: 1;
-  padding: 10px;
+  padding: 5px;
   aspect-ratio: 1;
   position: relative;
-  background-color: #ccc;
+  background-color: #2c3e50;
 }
 
 .grid__row:nth-child(odd) .grid__cell:nth-child(odd),
 .grid__row:nth-child(even) .grid__cell:nth-child(even) {
-  background-color: #ddd;
+  background-color: #34495e;
 }
 
 .grid__coordinates {
