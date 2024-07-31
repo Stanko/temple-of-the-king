@@ -51,21 +51,23 @@ function Grid({ store, characters, selectedID, setSelectedID, setCharacters }) {
         return (
           <div key={y} className="grid__row">
             {Array.from({ length: grid.width }).map((_, x) => {
-              const character = getItemOnField(characters, { x, y });
+              const characterOnTheField = getItemOnField(characters, { x, y });
 
               const highlight = canMoveToField(selectedCharacter, x, y);
 
               return (
                 <Cell key={`${x}-${y}`} x={x} y={y} highlight={highlight}>
-                  {character && (
-                    <Character
-                      {...character}
-                      isSelected={character.id === selectedID}
-                      setSelectedID={setSelectedID}
-                      isOnGrid
-                      setCharacters={setCharacters}
-                    />
-                  )}
+                  {characterOnTheField &&
+                    characterOnTheField.map((character) => (
+                      <Character
+                        {...character}
+                        key={character.id}
+                        isSelected={character.id === selectedID}
+                        setSelectedID={setSelectedID}
+                        isOnGrid
+                        setCharacters={setCharacters}
+                      />
+                    ))}
                 </Cell>
               );
             })}

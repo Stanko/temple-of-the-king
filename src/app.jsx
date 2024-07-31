@@ -7,7 +7,9 @@ import Cards from './components/cards/cards';
 import { useEffect, useState } from 'react';
 import Log from './components/log/log';
 import Characters from './components/characters/characters';
-import defaultCharacters from './data/characters.js';
+import defaultCharacters, {
+  creatures as defaultCreatures,
+} from './data/characters.js';
 
 let i = 100;
 
@@ -94,6 +96,7 @@ function App() {
         setCharacters={setCharacters}
       />
       <Characters characters={defaultCharacters} />
+      <Characters characters={defaultCreatures} />
       <Cards />
       <Log log={log} />
     </main>

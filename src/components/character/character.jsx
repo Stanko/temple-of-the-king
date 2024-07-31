@@ -10,6 +10,7 @@ const classesEmojis = {
   warrior: '⚔️',
   mage: '🔮',
   rogue: '🗡️',
+  creature: '🐉',
 };
 
 function Character(props) {
@@ -66,13 +67,14 @@ function Character(props) {
         return newCharacters;
       });
     }
-  }, [characterData, id]);
+  }, [characterData, id, setCharacters]);
 
   return (
     <div
       className={classNames('character', {
         'character--selected': isSelected,
         'character--dragging': isDragging,
+        [`character--${characterClass}`]: true,
       })}
     >
       <h2 className="character__title" ref={ref}>

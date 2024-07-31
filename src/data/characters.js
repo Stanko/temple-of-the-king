@@ -10,6 +10,7 @@ export const classes = {
   MAGE: 'mage',
   WARRIOR: 'warrior',
   ROGUE: 'rogue',
+  CREATURE: 'creature',
 };
 
 /**
@@ -17,7 +18,7 @@ export const classes = {
  */
 
 /**
- * @typedef Card
+ * @typedef Character
  * @type {Object}
  * @property {'character'} type
  * @property {number} id
@@ -30,7 +31,7 @@ export const classes = {
  */
 
 /**
- * @type {Card[]}
+ * @type {Character[]}
  */
 const characters = [
   {
@@ -89,6 +90,72 @@ const characters = [
     name: 'Maiev',
     image: 'characters/6.png',
     characterClass: classes.ROGUE,
+    hp: 7,
+    move: 2,
+    createNew: true,
+  },
+];
+
+/**
+ * @type {Character[]}
+ */
+export const creatures = [
+  {
+    type: 'character',
+    id: 7,
+    name: 'Goblin',
+    image: 'creatures/1.png',
+    characterClass: classes.CREATURE,
+    hp: 6,
+    move: 1,
+    createNew: true,
+  },
+  {
+    type: 'character',
+    id: 8,
+    name: 'Blob',
+    image: 'creatures/2.png',
+    characterClass: classes.CREATURE,
+    hp: 10,
+    move: 1,
+    createNew: true,
+  },
+  {
+    type: 'character',
+    id: 9,
+    name: 'Frog',
+    image: 'creatures/3.png',
+    characterClass: classes.CREATURE,
+    hp: 7,
+    move: 3,
+    createNew: true,
+  },
+  {
+    type: 'character',
+    id: 10,
+    name: 'Wolf',
+    image: 'creatures/4.png',
+    characterClass: classes.CREATURE,
+    hp: 6,
+    move: 1,
+    createNew: true,
+  },
+  {
+    type: 'character',
+    id: 11,
+    name: 'Hornet',
+    image: 'creatures/5.png',
+    characterClass: classes.CREATURE,
+    hp: 10,
+    move: 4,
+    createNew: true,
+  },
+  {
+    type: 'character',
+    id: 12,
+    name: 'Goblin Archer',
+    image: 'creatures/6.png',
+    characterClass: classes.CREATURE,
     hp: 7,
     move: 2,
     createNew: true,
