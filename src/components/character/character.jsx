@@ -27,14 +27,18 @@ function Character(props) {
     setCharacters,
   } = props;
   const ref = useRef(null);
+  // I'm somewhat ashamed of this, but it is a throwaway code anyway...
+  const updateLock = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
 
   const store = useCreateStore();
 
-  const characterData = useControls(
-    {
-      hp: getRange(0, 20, hp),
-      move: getRange(0, 10, move),
+  const [characterData, setCharacterData] = useControls(
+    () => {
+      return {
+        hp: getRange(0, 20, hp),
+        move: getRange(0, 10, move),
+      };
     },
     { store }
   );
@@ -56,7 +60,30 @@ function Character(props) {
   }, [props, characterData]);
 
   useEffect(() => {
+    if (updateLock.current) {
+      return;
+    }
+    updateLock.current = true;
+    setTimeout(() => {
+      updateLock.current = false;
+    }, 100);
+
+    if (props.hp !== characterData.hp) {
+      setCharacterData({ ...characterData, hp: props.hp });
+    } else if (props.move !== characterData.move) {
+      setCharacterData({ ...characterData, move: props.move });
+    }
+  }, [props, characterData, setCharacterData]);
+
+  useEffect(() => {
+    if (updateLock.current) {
+      return;
+    }
     if (setCharacters) {
+      updateLock.current = true;
+      setTimeout(() => {
+        updateLock.current = false;
+      }, 100);
       setCharacters((prev) => {
         const index = prev.findIndex((char) => char.id === id);
         const newCharacters = [...prev];

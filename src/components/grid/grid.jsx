@@ -19,13 +19,13 @@ function Grid({ store, characters, selectedID, setSelectedID, setCharacters }) {
     'Grid',
     {
       width: {
-        value: 8,
+        value: 5,
         min: 1,
         max: 20,
         step: 1,
       },
       height: {
-        value: 4,
+        value: 5,
         min: 1,
         max: 20,
         step: 1,

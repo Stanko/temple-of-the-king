@@ -20,6 +20,23 @@ function App() {
   const [selectedID, setSelectedID] = useState(null);
 
   useEffect(() => {
+    const updateCharacter = (id, data) => {
+      const character = characters.find((c) => c.id === id);
+
+      if (!character) {
+        return;
+      }
+
+      setCharacters([
+        ...characters.filter((c) => c.id !== id),
+        { ...character, ...data },
+      ]);
+    };
+
+    const removeCharacter = (id) => {
+      setCharacters(characters.filter((c) => c.id !== id));
+    };
+
     return monitorForElements({
       onDrop({ source, location }) {
         const destination = location.current.dropTargets[0];
@@ -28,23 +45,55 @@ function App() {
           return;
         }
 
-        if (source.data.createNew) {
-          setCharacters([
-            ...characters,
-            {
-              ...source.data,
-              name: source.data.name,
-              id: i++,
-              position: destination.data,
-              createNew: false,
-            },
-          ]);
-        } else {
-          const character = characters.find((c) => c.id === source.data.id);
+        const selectedCharacter =
+          selectedID !== null
+            ? characters.find((c) => c.id === selectedID)
+            : null;
 
-          if (character) {
-            character.position = destination.data;
-            setCharacters([...characters]);
+        if (source.data.type === 'card') {
+          const card = source.data;
+          const target = characters.find(
+            (c) =>
+              c.position.x === destination.data.x &&
+              c.position.y === destination.data.y
+          );
+
+          // TODO check if character is in range
+
+          if (target && selectedCharacter) {
+            // Apply card to target
+            if (card.attack) {
+              target.hp -= card.attack * card.repeat;
+
+              if (target.hp <= 0) {
+                // Dead
+                removeCharacter(target.id);
+              } else {
+                updateCharacter(target.id, { ...target });
+              }
+            }
+          }
+        } else if (source.data.type === 'character') {
+          if (source.data.createNew) {
+            // Add new character
+            setCharacters([
+              ...characters,
+              {
+                ...source.data,
+                name: source.data.name,
+                id: i++,
+                position: destination.data,
+                createNew: false,
+              },
+            ]);
+          } else {
+            // Move character
+            const character = characters.find((c) => c.id === source.data.id);
+
+            if (character) {
+              character.position = destination.data;
+              setCharacters([...characters]);
+            }
           }
         }
 
@@ -57,10 +106,7 @@ function App() {
             action = 'Played';
             selectedMessage = 'no character selected';
 
-            if (selectedID !== null) {
-              const selectedCharacter = characters.find(
-                (c) => c.id === selectedID
-              );
+            if (selectedCharacter) {
               selectedMessage = (
                 <span>
                   for <b>{selectedCharacter.name}</b>
@@ -82,12 +128,13 @@ function App() {
         });
       },
     });
-  }, [characters, selectedID]);
+  }, [characters, selectedID, setCharacters, setLog]);
 
   return (
     <main>
-      <h1>Temple of the King</h1>
       <Leva store={appStore} />
+      <Characters characters={defaultCharacters} />
+      <Characters characters={defaultCreatures} />
       <Grid
         store={appStore}
         characters={characters}
@@ -95,8 +142,6 @@ function App() {
         setSelectedID={setSelectedID}
         setCharacters={setCharacters}
       />
-      <Characters characters={defaultCharacters} />
-      <Characters characters={defaultCreatures} />
       <Cards />
       <Log log={log} />
     </main>
